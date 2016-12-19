@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<script>
+			function shout() {				
+				// extract the user input values
+				var nickname = document.getElementById('nickname').value;
+				var shouttext = document.getElementById('shouttext').value;
+				console.log(nickname + " shouts " + shouttext);
+				// verify the inputs
+				if ((nickname.length < 2) || (shouttext.length == 0)) {
+					alert("Nickname must be at least 2 characters long "
+							+ " and shout may not be empty");
+					return;
+				}
+				// add new entry to the table
+				var resultTable = document.getElementById('result');
+				resultTable.innerHTML +=
+					"<tr><td><b>" + nickname + "</b></td>" +
+					"<td><i>" + shouttext + "</i></td></tr>";
+				// remove the oldest entry if we have too many
+				var trList = resultTable.getElementsByTagName('tr');
+				if (trList.length > 6) {
+					resultTable.deleteRow(1);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		Nickname: <input id="nickname" type="text"><br>
+		<input id="shouttext" type="text">
+		<button onclick="shout()">Shout!</button>
+		<table border="1" id="result">
+			<tr><th>Nickname</th><th>Shout</th></tr>			
+		</table>
+	</body>
+</html>
+
+
+
+
+
+
+
+

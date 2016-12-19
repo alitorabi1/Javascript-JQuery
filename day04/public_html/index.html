@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <script src="jquery-2.2.3.min.js"></script>        
+        <title>Ex 1 jQuery</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            $(document).ready(function () {
+                // alert("document fully loaded");
+                $("#sayHello").click(function () {
+                    var name = $("#name").val();
+                    alert("Hello " + name + "!");
+                    $("#nameList").append("<li>" + name + "</li>");
+                });
+                $("#makeColor1").click(function() {
+                    $("#nameList li").css('background-color','lightgreen');
+                });
+                $("#makeColor2").click(function() {
+                    $("#nameList li").css('background-color','pink');
+                });
+            });
+        </script>
+    </head>
+    <body>
+        Name: <input type="text" id="name"><br>
+        <button id="sayHello">Say hello</button><br>
+        <button id="makeColor1">Green</button><br>
+        <button id="makeColor2">Pink</button><br>
+        <ul id="nameList"></ul>
+    </body>
+</html>

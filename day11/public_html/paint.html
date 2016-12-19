@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Paint with Canvas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            #leftPane { width: 110px; display: inline-block; }
+            #leftPane canvas { border: 1px black solid; }
+            #big { border: 1px black solid; }
+            #colorTable { border: 1px black solid; }
+            #colorTable td { width: 30px; height: 30px; }
+            #shapeTable { border: 1px black solid; }
+            #shapeTable td { width: 47px; height: 47px; }
+            #shapeTable img { width: 47px; height: 47px; }
+        </style>
+        <script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+        <script type="text/javascript">
+            var shape = "circle", color = "black";
+            var ctxPrev, ctxBig;
+
+            function refreshPreview() {
+                // TODO: clear the preview first                
+                switch (shape) {
+                    case 'circle':
+                        break;
+                    case 'triangle':
+                        break;
+                    case 'dot':
+                        break;
+                    case 'square':
+                        ctxPrev.fillStyle = color;
+                        ctxPrev.fillRect(20, 20, 60, 60);
+                        break;
+                    default:
+                        alert("Internal error: call 1-800-WELEARN");
+                        return;
+                }
+            }
+
+            $(document).ready(function () {
+
+                var cp = document.getElementById("preview");
+                ctxPrev = cp.getContext("2d");
+                var cp = document.getElementById("big");
+                ctxBig = cp.getContext("2d");
+                refreshPreview();
+
+                $("#colorTable td").click(function () {
+                    color = $(this).attr('id');
+                    refreshPreview();
+                });
+                $("#shapeTable img").click(function () {
+                    shape = $(this).attr('id');
+                    refreshPreview();
+                });
+                $("#big").click(function (event) {
+                    var mouseX = event.pageX - $(this).offset().left;
+                    var mouseY = event.pageY - $(this).offset().top;
+                    switch (shape) {
+                        case 'circle':
+                            break;
+                        case 'triangle':
+                            break;
+                        case 'dot':
+                            break;
+                        case 'square':
+                            ctxBig.fillStyle = color;
+                            // start at half size upward and to the left
+                            ctxBig.fillRect(mouseX - 30, mouseY - 30, 60, 60);
+                            break;
+                        default:
+                            alert("Internal error: call 1-800-WELEARN");
+                            return;
+                    }
+                });
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <div id="leftPane">
+            <table id="colorTable">
+                <tr>
+                    <td id="red" style="background-color: red;">&nbsp;</td>
+                    <td id="green" style="background-color: green;">&nbsp;</td>
+                    <td id="blue" style="background-color: blue;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id="white" style="background-color: white;">&nbsp;</td>
+                    <td id="black" style="background-color: black;">&nbsp;</td>
+                    <td id="purple" style="background-color: purple;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td id="violet" style="background-color: violet;">&nbsp;</td>
+                    <td id="aquamarine" style="background-color: aquamarine;">&nbsp;</td>
+                    <td id="brown" style="background-color: brown;">&nbsp;</td>
+                </tr>
+            </table>
+            <table id="shapeTable">
+                <tr>
+                    <td><img id="circle" src="images/circle.png"></td>
+                    <td><img id="triangle" src="images/triangle.png"></td>
+                </tr>
+                <tr>
+                    <td><img id="dot" src="images/dot.png"></td>
+                    <td><img id="square" src="images/square.png"></td>
+                </tr>
+            </table>
+            <canvas id="preview" width="100" height="100"></canvas>
+        </div>
+        <canvas id="big" width="400" height="300"></canvas>
+    </body>
+</html>

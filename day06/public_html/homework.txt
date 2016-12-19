@@ -1,0 +1,30 @@
+Things to find out about regular expressions:
+
+A1A 1A1
+
+The meaning and use of:
+- ranges e.g. [a-zA-Z]
+- repeat operators: ? + * {n,m}
+- . \d \w
+- ^ $
+
+Find a tutorial (writte or video)
+about the above items.
+
+starting point e.g. https://www.codeschool.com/courses/breaking-the-ice-with-regular-expressions
+
+
+Challenge (optional)
+Write and understand regular expressions used
+to verify:
+- Canadian postal code
+- passport number
+- IP address
+- 10-digit north-american phone number
+e.g. 514-555-1234
+- username consisting of 3-10 lowercase
+letters and digits
+
+
+
+

@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<script>
+			function shout() {
+				var shouttext = document.getElementById('shouttext').value;
+				var ulTag = document.getElementById('result');
+				ulTag.innerHTML += '<li>' + shouttext + '</li>';
+				document.getElementById('shouttext').value = "";
+				var liList = ulTag.getElementsByTagName('li');
+				if (liList.length > 5) {
+					// alert("more than 5");
+					ulTag.removeChild(liList[0]);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="shouttext">
+		<button onclick="shout()">Shout!</button>
+		<ul id="result">
+		</ul>
+	</body>
+</html>

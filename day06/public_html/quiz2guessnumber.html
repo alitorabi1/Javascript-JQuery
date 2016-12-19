@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-2.2.3.min.js"></script> 
+        <script>
+            var correctNumber;
+            correctNumber = Math.floor(Math.random()*1000) + 1;
+                                              
+            $(document).ready(function() {
+                $("#tryItClick").click(function() {
+                    var userGuess = $("#userGuess").val();
+                    if (userGuess === "") {
+                        alert("Pick a number first");
+                        return;
+                    }
+                    if (userGuess != Math.floor(userGuess)) {
+                        alert("Pick an integer number");
+                        return;
+                    }
+                    userGuess = parseInt(userGuess);
+                    if (userGuess === correctNumber) {
+                        $("#result").append(
+                                "<li style=\"background-color: green\"><img src=\"images/correct.jpg\">" +
+                                "You guessed it</li>");
+                    } else if (userGuess > correctNumber) {
+                        $("#result").append("<li style=\"background-color: red\"><img src=\"images/golower.jpg\">" +
+                                "You guessed too high (" + userGuess
+                                + ")</li>");
+                    } else {
+                        $("#result").append("<li style=\"background-color: blue\"><img src=\"images/gohigher.jpg\">" +
+                                "You guessed too low (" 
+                                + userGuess + ")</li>");
+                    }
+                    //
+                    
+                });
+                
+            });      
+            
+        </script>
+    </head>
+    <body>
+        Pick a number between 1 and 1000:
+        <input type="number" id="userGuess">
+        <button id="tryItClick">Try it!</button><br><br>
+        <ul id="result"></ul>            
+    </body>
+</html>

@@ -1,0 +1,11 @@
+TASK
+
+Create new file 'tempconv.html'.
+With one html input tag type number.
+With one button with text "Convert to Fahrenheit"
+
+User will enter temperature in Celsius.
+When button is pressed you will convert the value to Fahrenheit and display an alert box with the result.
+
+If text input is empty - display an error message.
+

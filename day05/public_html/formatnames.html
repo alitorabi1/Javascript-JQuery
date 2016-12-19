@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-2.2.3.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#addName").click(function () {
+                    var name = $("#name").val();
+                    var isItalic = $("#italic").is(':checked');
+                    var isBold = $("#bold").is(':checked');
+                    var color = $("#colorChooser").val();
+                    // TODO: handle the color
+                    var style = '';
+                    style += isItalic ? "font-style: italic; " : "";
+                    style += isBold ? "font-weight: bold; " : "";
+                    style += "color: " + color + "; ";
+                    $("#result").append('<li style="' + style + '">' + name + '</li>');
+                });
+                
+                $("#reset").click(function() {
+                    $("#result li").attr('style', '');
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+        Name: <input type="text" id="name">
+        <br><br><button id="addName">Add name</button><br><br>
+        <input type="checkbox" id="italic">Italic
+        <input type="checkbox" id="bold">Bold        
+        <br><br><select id="colorChooser">
+            <option value="green">Green</option>
+            <option value="lightgreen">Light green</option>
+            <option value="blue">Blue</option>
+            <option value="yellow">Yellow</option>
+            <option value="purple">Purple</option>
+        </select>        
+        <br><br><button id="reset">Remove all formatting</button>
+        <br><br><ul id="result"></ul>
+    </body>
+</html>

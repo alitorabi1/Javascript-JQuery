@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="jquery-2.2.3.min.js"></script>
+        <title>Random1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            $(document).ready(function() {
+                $("#generate").click(function(){
+                    // extract values from user inputs
+                    var min = $("#min").val();
+                    var max = $("#max").val();
+                    console.log("min is " + min + ", max is " + max);
+                    // validate user inputs
+                    if ((min == "") || (max == "")) {
+                        alert("Min and max must not be empty");
+                        return;
+                    }
+                    // make sure it's not a floating point
+                    if ((min != Math.floor(min)) || (max != Math.floor(max))){
+                        alert("Min and max must be integer values");
+                        return;
+                    }
+                    // moved - this must happen before the if min > max
+                    min = parseInt(min);
+                    max = parseInt(max);
+                    if (min > max) {
+                        alert("Min must be smaller of equal to max");
+                        return;
+                    }                    
+                    //
+                    for (var i=0; i < 5; i++) {
+                        var r = Math.random();
+                        var range = max - min + 1;
+                        var num = Math.floor(r*range + min);
+                        console.log(num);
+                        $("#v" + i).html(num);
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        Min: <input id="min" type="number">,
+        Max: <input id="max" type="number"><br>
+        <button id="generate">Generate random numbers</button>
+        <table border="1">
+            <tr>
+                <td id="v0">&nbsp;</td>
+                <td id="v1">&nbsp;</td>
+                <td id="v2">&nbsp;</td>
+                <td id="v3">&nbsp;</td>
+                <td id="v4">&nbsp;</td>
+            </tr>
+        </table>
+    </body>
+</html>

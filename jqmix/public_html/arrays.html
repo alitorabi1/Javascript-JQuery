@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            task1();
+            function task1() { // TASK 1
+// * Randomly generate 10 integer values from -100-100 and put them into an array.
+                var array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                for (var i = 0; i < array.length; i++) {
+                    var r = Math.random();
+                    var range = 100 + 100 + 1;
+                    array[i] = Math.floor(r * range - 100);
+//                    array[i] = Math.floor(Math.random()*91+10);
+                }
+// * Print out the entire array - in one line.
+                console.log(array);
+// * Find the largest and the smallest element of the array and print them out.
+//                var min = -100, max = 100;
+                max = Math.max.apply(null, array);
+                min = Math.min.apply(null, array);
+                console.log("min: " + min + ", max: " + max);
+            }
+            /*
+             TASK 2
+             * Randomly generate 12 integer values from -100 to +100
+             and put them into a 2-dimensional array 3 rows by 4 columns.
+             * Print out the entire array - in 3 lines.
+             * Find the largest and the smallest element of the array
+             and print them out.
+             * Find the average of all positive numbers and print it.
+             */
+        </script>        
+    </head>
+    <body>
+        <div>TODO write content</div>
+    </body>
+</html>

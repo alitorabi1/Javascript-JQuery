@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<script>
+			// model
+			var shoutList = [];
+			//
+			function shout() {
+				var shouttext = document.getElementById('shouttext').value;
+				shoutList.push(shouttext);
+				if (shoutList.length > 5) {
+					shoutList.shift();
+				}
+				var listHtml = "";
+				for (var i=0; i<shoutList.length; i++) {
+					listHtml += "<li>" + shoutList[i] + "</li>";
+				}								
+				var ulTag = document.getElementById('result');
+				ulTag.innerHTML = listHtml;
+				
+				document.getElementById('shouttext').value = "";
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="shouttext">
+		<button onclick="shout()">Shout!</button>
+		<ul id="result">
+		</ul>
+	</body>
+</html>

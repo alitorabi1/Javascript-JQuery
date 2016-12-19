@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trip Form</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .inputCombo { width: 450px; margin: 10px; }
+            .inputCombo label { width: 150px; display: inline-block; }
+            .inputCombo input { width: 150px; }
+            .inputCombo p { width: 400px; }
+            .inputError {                
+                border: 2px solid red;
+                background-color: yellow;
+            }
+            .inputComboRadios  { width: 450px; margin: 10px; }
+            .inputComboRadios label { width: 150px; display: inline-block; }            
+        </style>
+        <script src="jquery-2.2.3.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".errorMessage").hide();
+                
+                $("#copYes").click(function(event) {
+                    $("#passport2NumberContainer").show();
+                    $("#name2Container").show();
+                });
+                $("#copNo").click(function(event) {
+                    $("#passport2NumberContainer").hide();
+                    $("#name2Container").hide();
+                });
+                
+                
+                $("form").submit(function (event) {
+                    var isAllValid = true;
+                    //
+                    var departureDate = $("#departureDateContainer input").val();
+                    if (departureDate.match(/^\d\d\/\d\d\/\d\d$/)) {
+                        var dd = departureDate.split('/');
+                        if ((dd[0] > 31) || (dd[1] > 12) || (dd[2] < 16)) {
+                            $("#departureDateContainer .errorMessage").show();
+                            $("#departureDateContainer").addClass("inputError");
+                            isAllValid = false;
+                        } else {
+                            $("#departureDateContainer .errorMessage").hide();
+                            $("#departureDateContainer").removeClass("inputError");
+                        }
+                    } else {
+                        $("#departureDateContainer .errorMessage").show();
+                        $("#departureDateContainer").addClass("inputError");
+                        isAllValid = false;
+                    }
+                    //
+                    var returnDate = $("#returnDateContainer input").val();
+                    if (returnDate.match(/^\d\d\/\d\d\/\d\d$/)) {
+                        var rd = returnDate.split('/');
+                        if ((rd[0] > 31) || (rd[1] > 12) || (rd[2] < 16)) {
+                            $("#returnDateContainer .errorMessage").show();
+                            $("#returnDateContainer").addClass("inputError");
+                            isAllValid = false;
+                        } else {
+                            var dd = departureDate.split('/');
+                            var ddStr = dd[2] + dd[1] + dd[0];
+                            var ddInt = parseInt(ddStr);
+                            var rdStr = rd[2] + rd[1] + rd[0];
+                            var rdInt = parseInt(rdStr);
+                            if (ddInt < rdInt) {
+                                $("#returnDateContainer .errorMessage").hide();
+                                $("#returnDateContainer").removeClass("inputError");
+                            } else {
+                                $("#returnDateContainer .errorMessage").show();
+                                $("#returnDateContainer").addClass("inputError");
+                                isAllValid = false;
+                            }
+                        }
+                    } else {
+                        $("#returnDateContainer .errorMessage").show();
+                        $("#returnDateContainer").addClass("inputError");
+                        isAllValid = false;
+                    }
+                    //
+                    var depAirport = $("#departureAirportContainer input").val();
+                    if (depAirport.match(/^[A-Z]{3}$/)) {
+                        $("#departureAirportContainer .errorMessage").hide();
+                        $("#departureAirportContainer").removeClass("inputError");
+                    } else {
+                        $("#departureAirportContainer .errorMessage").show();
+                        $("#departureAirportContainer").addClass("inputError");
+                        isAllValid = false;
+                    }
+                    //
+                    //
+                    var dstAirport = $("#destinationAirportContainer input").val();
+                    if (dstAirport.match(/^[A-Z]{3}$/)) {
+                        $("#destinationAirportContainer .errorMessage").hide();
+                        $("#destinationAirportContainer").removeClass("inputError");
+                    } else {
+                        $("#destinationAirportContainer .errorMessage").show();
+                        $("#destinationAirportContainer").addClass("inputError");
+                        isAllValid = false;
+                    }
+                    //
+                    var firstLastName = $("#nameContainer").val();
+                    if (firstLastName.lenght < 2) {
+                        $("#nameContainer .errorMessage").hide();
+                        $("#nameContainer").removeClass("inputError");
+                    } else {
+                        $("#nameContainer .errorMessage").show();
+                        $("#nameContainer").addClass("inputError");
+                        isAllValid = false;
+                    }
+                    //
+                    if ($("#copYes").prop("checked")) {
+                        // TODO: verify co-passenger name and passport
+                        
+                    }
+                    //
+                    if (!isAllValid) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form method="POST" action="http://server.prokopski.com/html/receive.php">
+            <div class="inputCombo" id="departureDateContainer">
+                <p class="errorMessage">Departure date must be a valid date DD/MM/YY.</p>
+                <label for="departureDate">Departure date</label>
+                <input type="text" name="departureDate">                
+            </div>
+
+            <div class="inputCombo" id="returnDateContainer">
+                <p class="errorMessage">Return date must be a valid date DD/MM/YY
+                    and be after the Departure Date.</p>
+                <label for="returnDate">Return date</label>
+                <input type="text" name="returnDate">                
+            </div>
+
+            <div class="inputCombo" id="departureAirportContainer">
+                <p class="errorMessage">Departure airport code invalid.</p>
+                <label for="departureAirport">Departure airport</label>
+                <input type="text" name="departureAirport">
+            </div>
+
+            <div class="inputCombo" id="destinationAirportContainer">
+                <p class="errorMessage">Destination airport code invalid.</p>
+                <label for="destinationAirport">Destination airport</label>
+                <input type="text" name="destinationAirport">                
+            </div>
+
+            <div class="inputCombo" id="nameContainer">
+                <p class="errorMessage">Name must be at least 2 characters long</p>
+                <label for="firstLastName">First and last name</label>
+                <input type="text" name="firstLastName">                
+            </div>
+
+            <div class="inputCombo" id="passportNumberContainer">
+                <p class="errorMessage">Passport number is invalid must be AA123456.</p>
+                <label for="passportNumber">Passport number</label>
+                <input type="text" name="passportNumber">                
+            </div>
+
+            <div class="inputCombo" id="emailContainer">
+                <p class="errorMessage">Email must be valid.</p>
+                <label for="email">Email address</label>
+                <input type="text" name="email">                
+            </div>
+
+            <div class="inputComboRadios">
+                <label>Co-passenger:</label>                
+                <input id="copYes" type="radio" name="copassanger" value="yes" checked> Yes
+                <input id="copNo" type="radio" name="copassanger" value="no"> No
+            </div>
+
+            <div class="inputCombo" id="name2Container">
+                <p class="errorMessage">Name must be at least 2 characters long</p>
+                <label for="firstLastName2">First and last name</label>
+                <input type="text" name="firstLastName2">                
+            </div>
+
+            <div class="inputCombo" id="passport2NumberContainer">
+                <p class="errorMessage">Passport number is invalid must be AA123456.</p>
+                <label for="passportNumber2">Passport number</label>
+                <input type="text" name="passportNumber2">                
+            </div>
+
+            <div class="inputCombo">
+                <input type="submit" value="Book trip">
+            </div>
+
+        </form>
+    </body>
+</html>

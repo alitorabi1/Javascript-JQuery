@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #mainContainer {
+                width: 77%;
+                margin: 0 auto;
+            }
+            #header {
+                background-color: yellow;
+                height: 50px;
+            }
+            #leftside {
+                float: left;
+                width: 25%;
+                height: 700px;
+            }
+            #middleside {
+                background-color: green;
+                float: left;
+                width: 50%;
+                height: 700px;
+            }
+            #rightside {
+                background-color: blue;
+                float: left;
+                width: 25%;
+                height: 700px;
+            }
+            #footer {
+                width: 100%;
+                display: inline-block;
+                background-color: yellow;
+                height: 35px;
+            }
+            .inputCombo { margin: 10px; }
+            .inputCombo label { width: 105px; display: inline-block;  }
+            .inputCombo input { width: 150px; }
+            .errorMessage {
+                border-radius: 5px;
+                color: red;
+                font-weight: bold;
+                font-style: italic;
+                font-size: 0.75em;
+                padding: 3px;
+            }
+        </style>
+        <title>Structural html file</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-2.2.3.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".errorMessage").hide();
+                $("#showHide").click(function () {
+                    $("#rightside").toggle();
+                    $("#middleside").toggle();
+                    $("#leftside").toggle();
+                    $("#footer").toggle();
+                });
+//                $("#formContainer button").click(function () {
+//                });
+                $('#registrationForm').submit(function (event) {
+                    var username = $("#username").val();
+                    var firstname = $("#firstname").val();
+                    var lastname = $("#lastname").val();
+                    var streetAddress = $("#streetAddress").val();
+                    var postalcode = $("#postalcode").val();
+                    var ipaddress = $("#ipaddress").val();
+                    var email = $("#email").val();
+                    var passport = $("#passport").val();
+                    var birthday = $("#birthday").val();
+                    var telephone = $("#telephone").val();
+                    var website = $("#website").val();
+                    if (username.match(/^[a-z0-9]{3,10}$/)) {
+                        $("#usernameContainer .errorMessage").hide();
+                        $("#usernameContainer").removeClass("errorMessage");
+                    } else {
+                        $("#usernameContainer .errorMessage").show();
+                        $("#usernameContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (firstname.match(/^[A-Za-z]{2,}$/)) {
+                        $("#firstnameContainer .errorMessage").hide();
+                        $("#firstnameContainer").removeClass("errorMessage");
+                    } else {
+                        $("#firstnameContainer .errorMessage").show();
+                        $("#firstnameContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (lastname.match(/^[A-Za-z]{2,}$/)) {
+                        $("#lastnameContainer .errorMessage").hide();
+                        $("#lastnameContainer").removeClass("errorMessage");
+                    } else {
+                        $("#lastnameContainer .errorMessage").show();
+                        $("#lastnameContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (streetAddress.match(/^[a-zA-Z0-9! \,\'\@#\$%\^\&*\)\(+=._-]+$/)) {
+                        $("#streetAddressContainer .errorMessage").hide();
+                        $("#streetAddressContainer").removeClass("errorMessage");
+                    } else {
+                        $("#streetAddressContainer .errorMessage").show();
+                        $("#streetAddressContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (postalcode.match(/^[A-Za-z][0-9][A-Za-z][ ]?[0-9][A-Za-z][0-9]$/)) {
+                        $("#postalcodeContainer .errorMessage").hide();
+                        $("#postalcodeContainer").removeClass("errorMessage");
+                    } else {
+                        $("#postalcodeContainer .errorMessage").show();
+                        $("#postalcodeContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (ipaddress.match(/^([0-9]{1,3}\.){3}[0-9]{1,3}$/)) {
+                        var numList = ipaddress.split('.');
+                        var isValid = true;
+                        for (var i = 0; i < 4; i++) {
+                            if (numList[i] > 255) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                        if (isValid) {
+                            $("#ipAddressContainer .errorMessage").hide();
+                            $("#ipAddressContainer").removeClass("errorMessage");
+                        } else {
+                            $("#ipAddressContainer .errorMessage").show();
+                            $("#ipAddressContainer").addClass("errorMessage");
+                            event.preventDefault();
+                        }
+                    } else {
+                        $("#ipAddressContainer .errorMessage").show();
+                        $("#ipAddressContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                        $("#emailContainer .errorMessage").hide();
+                        $("#emailContainer").removeClass("errorMessage");
+                    } else {
+                        $("#emailContainer .errorMessage").show();
+                        $("#emailContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (passport.match(/^[A-Z]{2}[0-9]{6}$/)) {
+                        $("#passportContainer .errorMessage").hide();
+                        $("#passportContainer").removeClass("errorMessage");
+                    } else {
+                        $("#passportContainer .errorMessage").show();
+                        $("#passportContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    var year = new Date();
+                    if (birthday.match(/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/)) {
+                        var numList = birthday.split('/');
+                        var isValid = true;
+                        if ((parseInt(numList[0]) > (year.getFullYear() - 18)) ||
+                                (parseInt(numList[1]) > 12) || (parseInt(numList[2]) > 31)) {
+                            isValid = false;
+                        }
+                        if (isValid) {
+                            $("#birthdayContainer .errorMessage").hide();
+                            $("#birthdayContainer").removeClass("errorMessage");
+                        } else {
+                            $("#birthdayContainer .errorMessage").show();
+                            $("#birthdayContainer").addClass("errorMessage");
+                            event.preventDefault();
+                        }
+                    } else {
+                        $("#birthdayContainer .errorMessage").show();
+                        $("#birthdayContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (telephone.match(/^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$/)) {
+                        $("#telephoneContainer .errorMessage").hide();
+                        $("#telephoneContainer").removeClass("errorMessage");
+                    } else {
+                        $("#telephoneContainer .errorMessage").show();
+                        $("#telephoneContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (telephone.match(/^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$/)) {
+                        $("#telephoneContainer .errorMessage").hide();
+                        $("#telephoneContainer").removeClass("errorMessage");
+                    } else {
+                        $("#telephoneContainer .errorMessage").show();
+                        $("#telephoneContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                    if (website.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)) {
+                        $("#websiteContainer .errorMessage").hide();
+                        $("#websiteContainer").removeClass("errorMessage");
+                    } else {
+                        $("#websiteContainer .errorMessage").show();
+                        $("#websiteContainer").addClass("errorMessage");
+                        event.preventDefault();
+                    }
+                });
+                $("#username").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#username").blur(function () {
+                    var username = $("#username").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("username is: " + username);
+                    if (username.match(/^[a-z0-9]{3,10}$/)) {
+                        $("#usernameContainer .errorMessage").hide();
+                        $("#usernameContainer").removeClass("errorMessage");
+                    } else {
+                        $("#usernameContainer .errorMessage").show();
+                        $("#usernameContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#firstname").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#firstname").blur(function () {
+                    var firstname = $("#firstname").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("firstname is: " + firstname);
+                    if (firstname.match(/^[A-Za-z]{2,}$/)) {
+                        $("#firstnameContainer .errorMessage").hide();
+                        $("#firstnameContainer").removeClass("errorMessage");
+                    } else {
+                        $("#firstnameContainer .errorMessage").show();
+                        $("#firstnameContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#lastname").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#lastname").blur(function () {
+                    var lastname = $("#lastname").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("lastname is: " + lastname);
+                    if (lastname.match(/^[A-Za-z]{2,}$/)) {
+                        $("#lastnameContainer .errorMessage").hide();
+                        $("#lastnameContainer").removeClass("errorMessage");
+                    } else {
+                        $("#lastnameContainer .errorMessage").show();
+                        $("#lastnameContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#streetAddress").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#streetAddress").blur(function () {
+                    var streetAddress = $("#streetAddress").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("streetAddress is: " + streetAddress);
+                    if (streetAddress.match(/^[a-zA-Z0-9! \,\'\@#\$%\^\&*\)\(+=._-]+$/)) {
+                        $("#streetAddressContainer .errorMessage").hide();
+                        $("#streetAddressContainer").removeClass("errorMessage");
+                    } else {
+                        $("#streetAddressContainer .errorMessage").show();
+                        $("#streetAddressContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#postalcode").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#postalcode").blur(function () {
+                    var postalcode = $("#postalcode").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("postalcode is: " + postalcode);
+                    if (postalcode.match(/^[A-Za-z][0-9][A-Za-z][ ]?[0-9][A-Za-z][0-9]$/)) {
+                        $("#postalcodeContainer .errorMessage").hide();
+                        $("#postalcodeContainer").removeClass("errorMessage");
+                    } else {
+                        $("#postalcodeContainer .errorMessage").show();
+                        $("#postalcodeContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#ipaddress").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#ipaddress").blur(function () {
+                    var ipaddress = $("#ipaddress").val();
+                    $(this).css("background-color", "#ffffff");
+                    if (ipaddress.match(/^([0-9]{1,3}\.){3}[0-9]{1,3}$/)) {
+                        var numList = ipaddress.split('.');
+                        var isValid = true;
+                        for (var i = 0; i < 4; i++) {
+                            if (numList[i] > 255) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                        if (isValid) {
+                            $("#ipAddressContainer .errorMessage").hide();
+                            $("#ipAddressContainer").removeClass("errorMessage");
+                        } else {
+                            $("#ipAddressContainer .errorMessage").show();
+                            $("#ipAddressContainer").addClass("errorMessage");
+                        }
+                    } else {
+                        $("#ipAddressContainer .errorMessage").show();
+                        $("#ipAddressContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#email").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#email").blur(function () {
+                    var email = $("#email").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("email is: " + email);
+                    if (email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                        $("#emailContainer .errorMessage").hide();
+                        $("#emailContainer").removeClass("errorMessage");
+                    } else {
+                        $("#emailContainer .errorMessage").show();
+                        $("#emailContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#passport").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#passport").blur(function () {
+                    var passport = $("#passport").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("passport is: " + passport);
+                    if (passport.match(/^[A-Z]{2}[0-9]{6}$/)) {
+                        $("#passportContainer .errorMessage").hide();
+                        $("#passportContainer").removeClass("errorMessage");
+                    } else {
+                        $("#passportContainer .errorMessage").show();
+                        $("#passportContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#birthday").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#birthday").blur(function () {
+                    var birthday = $("#birthday").val();
+                    $(this).css("background-color", "#ffffff");
+                    var year = new Date();
+                    if (birthday.match(/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/)) {
+                        var numList = birthday.split('/');
+                        var isValid = true;
+                        if ((parseInt(numList[0]) > (year.getFullYear() - 18)) ||
+                                (parseInt(numList[1]) > 12) || (parseInt(numList[2]) > 31)) {
+                            isValid = false;
+                        }
+                        if (isValid) {
+                            $("#birthdayContainer .errorMessage").hide();
+                            $("#birthdayContainer").removeClass("errorMessage");
+                        } else {
+                            $("#birthdayContainer .errorMessage").show();
+                            $("#birthdayContainer").addClass("errorMessage");
+                        }
+                    } else {
+                        $("#birthdayContainer .errorMessage").show();
+                        $("#birthdayContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#telephone").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#telephone").blur(function () {
+                    var telephone = $("#telephone").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("telephone is: " + telephone);
+                    if (telephone.match(/^[0-9]{3}\-[0-9]{3}\-[0-9]{4}$/)) {
+                        $("#telephoneContainer .errorMessage").hide();
+                        $("#telephoneContainer").removeClass("errorMessage");
+                    } else {
+                        $("#telephoneContainer .errorMessage").show();
+                        $("#telephoneContainer").addClass("errorMessage");
+                    }
+                });
+
+                $("#website").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#website").blur(function () {
+                    var website = $("#website").val();
+                    $(this).css("background-color", "#ffffff");
+                    console.log("website is: " + website);
+                    if (website.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/)) {
+                        $("#websiteContainer .errorMessage").hide();
+                        $("#websiteContainer").removeClass("errorMessage");
+                    } else {
+                        $("#websiteContainer .errorMessage").show();
+                        $("#websiteContainer").addClass("errorMessage");
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="mainContainer">
+            <header id="header">
+                <nav id="headerNav">
+                    <button id="showHide">Show/Hide</button>
+                </nav>
+            </header>
+            <div id="leftside">
+                <h3>Add airport</h3>
+                <form id="registrationForm" action="http://server.prokopski.com/html/receive.php">
+                    <aside id="lesfAside">
+                        <div class="inputCombo" id="usernameContainer">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username">
+                            <span class="errorMessage">Username must be 3-10 characters
+                                long and consist of only lowercase letters and numbers</span>
+                        </div>
+                        <div class="inputCombo" id="firstnameContainer">
+                            <label for="firstname">First name:</label>
+                            <input type="text" id="firstname" name="firstname">
+                            <span class="errorMessage">at least 2 characters long</span>
+                        </div>
+                        <div class="inputCombo" id="lastnameContainer">
+                            <label for="lastname">Last name:</label>
+                            <input type="text" id="lastname" name="lastname">
+                            <span class="errorMessage">at least 2 characters long</span>
+                        </div>
+                        <div class="inputCombo" id="streetAddressContainer">
+                            <label for="streetAddress">Street address:</label>
+                            <input type="text" id="streetAddress" name="streetAddress">
+                            <span class="errorMessage">at least 2 characters long</span>
+                        </div>
+                        <div class="inputCombo" id="postalcodeContainer">
+                            <label for="postalcode">Postalcode:</label>
+                            <input type="text" id="postalcode" name="postalcode">
+                            <span class="errorMessage">format H1H1H1 or H1H 1H1</span>
+                        </div>
+                        <div class="inputCombo" id="ipAddressContainer">
+                            <label for="ipaddress">IP address:</label>
+                            <input type="text" id="ipaddress" name="ipaddress">
+                            <span class="errorMessage">IP address consists must be in 
+                                0-255.0-255.0-255.0-255 format, e.g. 10.22.3.101.</span>
+                        </div>        
+                        <div class="inputCombo" id="emailContainer">
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" name="">
+                            <span class="errorMessage">email must look like a valid email</span>
+                        </div>
+                        <div class="inputCombo" id="passportContainer">
+                            <label for="passport">Passport number:</label>
+                            <input type="text" id="passport" name="passport">
+                            <span class="errorMessage">must look like AA123456</span>
+                        </div>
+                        <div class="inputCombo" id="birthdayContainer">
+                            <label for="birthday">Date of birth:</label>
+                            <input type="text" id="birthday" name="birthday">
+                            <span class="errorMessage">must be in format yyyy/mm/dd</span>
+                        </div>
+                        <div class="inputCombo" id="telephoneContainer">
+                            <label for="telephone">Telephone:</label>
+                            <input type="text" id="telephone" name="telephone">
+                            <span class="errorMessage">must be in format 123-555-1234</span>
+                        </div>
+                        <div class="inputCombo" id="websiteContainer">
+                            <label for="website">Website address:</label>
+                            <input type="text" id="website" name="website">
+                            <span class="errorMessage">must be a valid DNS name</span>
+                        </div>
+                        <div><button>Add airport</button></div>
+                    </aside>
+                </form>
+            </div>    
+            <div id="middleside">
+                <aside id="middleAside">
+                    Middle aside
+                </aside>
+            </div>    
+            <div id="rightside">
+                <aside id="rightAside">
+                    Right aside
+                </aside>
+            </div>    
+            <div id="footer">
+                <nav id="footerNav">
+                    Nav bar
+                </nav>
+            </div>    
+        </div>
+    </body>
+</html>

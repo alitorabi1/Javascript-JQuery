@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>TicTacToe with Canvas</title>
+        <style type="text/css">
+            #currentColor {
+                width: 400px;
+                height: 50px;
+                border: 1px black solid;
+            }
+            canvas {
+                border: 1px black solid;
+            }
+            .container {
+                display: inline-block;
+                margin-right: 40px;
+            }
+            #blueContainer {
+                margin-right: 0;
+            }
+        </style>
+        <script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+        <script type="text/javascript">
+
+            var ctxRed, ctxGreen, ctxBlue;
+            var red = 255, green = 255, blue = 255; // 0-255
+
+            function convert(integer) {
+                var str = Number(integer).toString(16);
+                return str.length == 1 ? "0" + str : str;
+            }
+
+            function to_rgb(r, g, b) {
+                return "#" + convert(r) + convert(g) + convert(b);
+            }
+
+            function makeGradient(ctx, color, position) {
+                var gradient = ctx.createLinearGradient(0, 0, 0, 255);
+                gradient.addColorStop(0, color);
+                gradient.addColorStop(1, "black");
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 100, 256);
+                ctx.beginPath();
+                ctx.strokeStyle = "white";
+                ctx.lineWidth = "3";
+                ctx.moveTo(0, 255-position);
+                ctx.lineTo(100, 255-position);
+                ctx.stroke();
+            }
+
+            function initialize() {
+                // get contexts for all 3 canvas and save them in globals
+                var cr = document.getElementById("red");
+                ctxRed = cr.getContext("2d");
+                var cg = document.getElementById("green");
+                ctxGreen = cg.getContext("2d");
+                var cb = document.getElementById("blue");
+                ctxBlue = cb.getContext("2d");
+                // draw gradients                
+                makeGradient(ctxRed, "red", red);
+                makeGradient(ctxGreen, "green", green);
+                makeGradient(ctxBlue, "blue", blue);
+                
+            }
+
+            $(document).ready(function () {
+
+                // draw the 4 lines to create board
+                initialize();
+
+                $("canvas").click(function (event) {
+                    var id = $(this).attr('id');
+                    var mouseX = event.pageX - $(this).offset().left;
+                    var mouseY = event.pageY - $(this).offset().top;
+                    console.log("X/Y: " + mouseX + "/" + mouseY);                    
+                    switch (id) {
+                        case 'red':
+                            red = Math.floor(255 - mouseY);
+                            break;
+                        case 'green':
+                            green = Math.floor(255 - mouseY);
+                            break;
+                        case 'blue':
+                            blue = Math.floor(255 - mouseY);
+                            break;
+                        default:
+                            alert("Error: call 1-800-WELEARN");
+                            return;
+                    }
+                    $("#currentColor").css('background-color',
+                            'rgb(' + red + ',' + green + ',' + blue + ')');
+                    $("#currentColor").html(to_rgb(red, green, blue).toUpperCase());
+
+                    makeGradient(ctxRed, "red", red);
+                    makeGradient(ctxGreen, "green", green);
+                    makeGradient(ctxBlue, "blue", blue);
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <div id="currentColor">#FFFFF</div>
+        <div class="container" id="redContainer">
+            <h3>Red:</h3>
+            <canvas id="red" width="100" height="256"></canvas>
+        </div>
+        <div class="container" id="greenContainer">
+            <h3>Green:</h3>
+            <canvas id="green" width="100" height="256"></canvas>
+        </div>
+        <div class="container" id="blueContainer">
+            <h3>Blue:</h3>
+            <canvas id="blue" width="100" height="256"></canvas>
+        </div>
+    </body>
+</html>

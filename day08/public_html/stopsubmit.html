@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-2.2.3.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#registrationForm').submit(function(event) {
+                    var username = $("input[name=username]").val();
+                    var pass1 = $("input[name=pass1]").val();
+                    var pass2 = $("input[name=pass2]").val();
+                    var allGood = true;
+                    if (username.length < 2) {
+                        allGood = false;
+                    }
+                    if (pass1.length < 2) {
+                        allGood = false;
+                    }
+                    if (pass1 != pass2) {
+                        allGood = false;
+                    }
+                    //
+                    if (!allGood) {
+                        alert("Invalid values");
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form id="registrationForm" action="http://server.prokopski.com/html/receive.php">
+            Username: <input type="text" name="username"><br>
+            Password: <input type="password" name="pass1"><br>
+            Password (repeat): <input type="password" name="pass2"><br>
+            <input type="submit">
+        </form>
+    </body>
+</html>

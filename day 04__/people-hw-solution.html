@@ -1,0 +1,69 @@
+<html>
+	<head>
+		<script>
+		var maxAge = -1;
+		var maxHeight = -1;
+		// DON'T DO THIS YET: var oldest = { name: "", age: -1 }
+		
+		function addToList() {
+			var name = document.getElementById('name').value;
+			var age = document.getElementById('age').value;
+			var height = document.getElementById('height').value;
+			// verify the inputs
+			if (name.length < 2) {
+				alert("name must be at least 2 characters long");
+				return;
+			}
+			if (age == "") {
+				alert("age must be not be empty");
+				return;
+			}
+			if (height == "") {
+				alert("height must be not be empty");
+				return;
+			}
+			age = parseFloat(age);
+			height = parseFloat(height);
+			if ((age < 0) || (age > 150)) {
+				alert("Age must be between 0 and 150");
+				return;
+			}
+			if ((height < 27) || (height > 250)) {
+				alert("Height must be between 0 and 150");
+				return;
+			}
+			// TODO: is oldest or tallest?
+			if (age >= maxAge) {
+				maxAge = age;
+				document.getElementById('oldestAge').innerHTML = age;
+				document.getElementById('oldestName').innerHTML = name;
+			}
+			if (height >= maxHeight) {
+				maxHeight = height;
+				document.getElementById('tallestHeight').innerHTML = height;
+				document.getElementById('tallestName').innerHTML = name;				
+			}
+			// add to recordList
+			document.getElementById('recordList').innerHTML +=
+				'<li>' + name + ' is ' + age + ' y/o, ' +
+				height + ' cm tall</li>';
+		}
+		</script>
+	</head>
+	<body>
+		<!-- user inputs -->
+		Name: <input id="name" type="text"><br>
+		Age: <input id="age" type="number"><br>
+		Height: <input id="height" type="number">
+		<button onclick="addToList()">Add to List!</button>
+		<br><br>
+		<!-- statistcs -->
+		<p>Tallest person is <span id="tallestName">TBD</span>
+		at <span id="tallestHeight">TBD</span>
+		<p>Oldest person is <span id="oldestName">TBD</span>
+		at <span id="oldestAge">TBD</span>
+		<!-- data records -->
+		<ul id="recordList">
+		</ul>		
+	</body>
+</html>

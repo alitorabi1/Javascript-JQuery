@@ -1,0 +1,25 @@
+Regular Expressions - Essentials
+
+[A-Za-z] -> range
+[abc-] -> a or b or c
+[^0-9] -> any character except for abc
++ -> one or more repetitions
+* -> zero, one or more repetitions
+? -> zero or one (optional)
+{n,m} -> repeated at least n times,
+not more than m times
+{n} -> repeat exactly n times
+{n,} -> at least n times
+{,n} -> at most n times
+. -> matches any one character
+
+Examples:
+^[a-zA-Z_][a-zA-Z0-9_]*$ -> validation
+of identifier in most programming languages
+
+
+
+
+
+
+

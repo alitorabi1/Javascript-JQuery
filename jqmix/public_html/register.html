@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .formError {
+                background-color: yellow;
+                color: red;
+                font-weight: bold;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script>
+            var thisIsMyGlobal = 123;
+            $(document).ready(function () {
+                $(".formError").hide();
+                
+                $("input[name=firstName]").keyup(function () {
+                    console.log("in KeyUup for firstName");
+                    var firstName = $("input[name=firstName]").val();
+                    if (firstName.length < 2) {
+                        $("#firstNameError").show();
+                    } else {
+                        $("#firstNameError").hide();
+                    }
+                });
+
+                $("input[name=email]").keyup(function () {
+                    var email = $("input[name=email]").val();
+                    if (!email.match(/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9._+-]+$/)) {
+                        $("#emailError").show();
+                    } else {
+                        $("#emailError").hide();
+                    }
+                });
+
+                $("#regForm").submit(function (event) {
+                    $("#errors").html("");
+                    var errorList = "";
+                    // check first name
+                    var firstName = $("input[name=firstName]").val();
+                    if (firstName.length < 2) {
+                        errorList += "<br>First name too short";
+                    }
+                    // check postal code
+                    var postalCode = $("input[name=postalCode]").val();
+                    if (!postalCode.match(/^[a-zA-Z][0-9][a-zA-Z][0-9][a-zA-Z][0-9]$/)) {
+                        errorList += "<br>Postal code is invalid 222";
+                    }
+
+                    if (errorList !== "") {
+                        $("#errors").html(errorList);
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="errors"></div>
+        <form id="regForm" action="receiver.php">
+            First name: <input type="text" name="firstName">
+            <span class="formError" id="firstNameError">
+                Error: First name must be at least 2 characters long</span><br>
+            Last name: <input type="text" name="lastName">
+            <span class="formError" id="lastNameError">
+                Error: First name must be at least 2 characters long</span><br>
+            Postal code: <input type="text" name="postalCode"><br>
+            Email: <input type="text" name="email">
+            <span class="formError" id="emailError">
+                Error: This is not a valid email.
+            </span><br>
+            <input type="submit">
+        </form>
+    </body>
+</html>

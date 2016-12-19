@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>TicTacToe with Canvas</title>
+        <style type="text/css">
+            #board {
+                border: 1px solid #000;
+            }
+            #gameStats {
+                width: 50px;
+                height: 300px;
+                display: inline-block;        
+                vertical-align: top;
+            }
+        </style>
+        <script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+        <script type="text/javascript">
+            var mouseX = 0, mouseY = 0;
+            var ctx;
+
+            // Model - status of the game
+            var movesCount = 0;
+            var board = [['', '', ''], ['', '', ''], ['', '', '']];
+
+            function drawEmptyBoard() {
+                ctx.beginPath();
+                ctx.lineWidth = "1";
+                ctx.strokeStyle = "black";
+                ctx.moveTo(100, 0);
+                ctx.lineTo(100, 300);
+                ctx.moveTo(200, 0);
+                ctx.lineTo(200, 300);
+                ctx.moveTo(0, 100);
+                ctx.lineTo(300, 100);
+                ctx.moveTo(0, 200);
+                ctx.lineTo(300, 200);
+                ctx.stroke();
+            }
+
+            function drawO(row, col) {
+                var centerX = col * 100 + 50;
+                var centerY = row * 100 + 50;
+                ctx.beginPath();
+                ctx.strokeStyle = "blue";
+                ctx.lineWidth = "2";
+                ctx.arc(centerX, centerY, 40, 0, Math.PI * 2, false);
+                ctx.stroke();
+            }
+
+            function drawX(row, col) {
+                var centerX = col * 100 + 50;
+                var centerY = row * 100 + 50;
+                ctx.beginPath();
+                ctx.strokeStyle = "green";
+                ctx.lineWidth = "2";
+                ctx.moveTo(centerX - 40, centerY - 40);
+                ctx.lineTo(centerX + 40, centerY + 40);
+                ctx.moveTo(centerX + 40, centerY - 40);
+                ctx.lineTo(centerX - 40, centerY + 40);
+                ctx.stroke();
+            }
+
+            $(document).ready(function () {
+                var c = document.getElementById("board");
+                ctx = c.getContext("2d");
+                // draw the 4 lines to create board
+                drawEmptyBoard();
+
+                $("#board").mousemove(function (event) {
+                    mouseX = event.pageX - $(this).offset().left;
+                    mouseY = event.pageY - $(this).offset().top;
+                });
+                $("#board").click(function () {
+                    var row = Math.floor(mouseY / 100);
+                    var col = Math.floor(mouseX / 100);
+                    if (movesCount % 2 == 0) {
+                        drawO(row, col);
+                    } else {
+                        drawX(row, col);
+                    }
+                    movesCount++;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h3>Tic Tac Toe Game</h3>
+        <div id="gameStats">
+            <p>Moves count:
+                <span id="movesCount">7</span></p>
+        </div>
+        <canvas id="board" width="300" height="300"></canvas>    
+    </body>
+</html>

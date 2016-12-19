@@ -1,0 +1,39 @@
+Form validation exercise:
+
+Take a look at
+http://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_focus_blur
+
+
+
+
+Implement validation.html file with one form.
+You will verify field contents in blur() handler.
+Include following fields and error messages.
+
+Username: 3-10 characters long, consisting
+of lowercase letters and numbers
+
+First name: at least 2 characters long
+
+Last name: at least 2 characters long
+
+Street address: at least 2 characters long
+
+Postal code (Canadian): format H1H1H1 or H1H 1H1
+
+Web server IP address: valid ip address
+
+Email: email must look like a valid email
+
+Passport number: must look like AA123456
+
+Date of birth: must be in format yyyy/mm/dd
+
+Telephone: must be in format 123-555-1234
+
+Website address: must be a valid DNS name
+
+
+
+
+

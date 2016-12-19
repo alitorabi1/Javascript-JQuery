@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                height: 100%;
+            }
+            #showHide {
+                position: fixed;
+                top: 0;
+                left: 0;        
+                width: 200px;
+                height: 20px;
+            }
+            #formContainer {
+                position: fixed;
+                top: 20px;
+                left: 0px;
+                width: 200px;
+                height: 100%;
+                background-color: aquamarine;
+            }
+            #formContainer label { width: 75px; display: inline-block; }
+            #formContainer input { width: 100px; }            
+            #formContainer div { margin: 5px; }
+            #formContainer h3 { margin: 5px; }
+            #formContainer button { width: 180px; }
+        </style>
+        <script src="jquery-2.2.3.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#showHide").click(function () {
+                    $("#formContainer").toggle();
+                });
+                $("#formContainer button").click(function () {
+                    var code = $("#code").val();
+                    var city = $("#city").val();
+                    var lat = $("#lat").val();
+                    var lng = $("#lng").val();
+                    if (!code.match(/^[A-Z]{3}$/)) {
+                        alert("Airport code invalid");
+                        return;
+                    }
+                    if (city.length < 2) {
+                        alert("City name too short");
+                        return;
+                    }
+                    if ((lat === "") || (lng === "")) {
+                        alert("Latitude and longitued must be entered");
+                        return;
+                    }
+                    lat = parseFloat(lat);
+                    lng = parseFloat(lng);
+                    if ((lat < -90) || (lat > 90)) {
+                        alert("Latitude must be between -90 and 90");
+                        return;
+                    }
+                    if ((lng < -180) || (lng > 180)) {
+                        alert("Longitude must be between -180 and 180");
+                        return;
+                    }
+                    // success
+                    var marker = new google.maps.Marker({
+                        position: { lat: lat, lng: lng },
+                        map: map,
+                        title: code + " : " + city
+                    });
+                });
+            });
+
+            var map;
+
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 1,
+                    center: { lat: 0, lng: 0}
+                });
+            }
+        </script>            
+    </head>
+    <body>
+        <div id="map"></div>
+        <button id="showHide">Show/Hide</button>
+        <div id="formContainer">
+            <h3>Add airport</h3>
+            <div><label for="code">Code:</label>
+                <input type="text" id="code"></div>
+            <div><label for="city">City:</label>
+                <input type="text" id="city"></div>
+            <div><label for="lat">Latitude:</label>
+                <input type="number" id="lat"></div>
+            <div><label for="lng">Longitude:</label>
+                <input type="number" id="lng"></div>
+            <div><button>Add airport</button></div>
+        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC308nPXyNu_FpwGzEby2gwVmG5LKx6UlU&callback=initMap"
+        async defer></script>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<style type="text/css">
+			#gameboard button {
+				width: 60px;
+				height: 60px;
+				font-weight: bold;
+			}
+		</style>
+		<script>
+		// Model (more or less)
+		var movesCount = 0;
+		var board = [[0,0,0],[0,0,0],[0,0,0]];
+		var playerNameO = "";
+		var playerNameX = "";
+		// controller
+		function buttonClick(row, col) {
+			if (board[row][col] != 0) {
+				return;
+			}
+			var playerMark = movesCount % 2 == 0 ? 'O' : 'X';
+			board[row][col] = playerMark;
+			document.getElementById("bt" + row + col).innerHTML = playerMark;
+			movesCount++;
+			if (isPlayerWinner(playerMark)) {
+				var name = document.getElementById('playerName' + playerMark);
+				alert("Player " + playerMark + " " + name + " has won!");
+				// TODO: clean up the board, reset the game
+			}
+		}
+		function isPlayerWinner(mark) {
+			// HOMEWORK: implement this method
+			// return true if mark is found in either:
+			// 1. any row (all 3 cells)
+			// 2. any column (all 3 cells)
+			// 3. across (two options)
+			// otherwise false is returned - no winner
+		}
+		</script>
+	</head>
+	<body>
+		Player O:<input type="text" id="playerNameO"><br>
+		Player X:<input type="text" id="playerNameX"><br>
+		<table id="gameboard">
+		<tr>
+			<td><button id="bt00" onclick="buttonClick(0,0)"></button></td>
+			<td><button id="bt01" onclick="buttonClick(0,1)"></button></td>
+			<td><button id="bt02" onclick="buttonClick(0,2)"></button></td>
+		</tr>
+		<tr>
+			<td><button id="bt10" onclick="buttonClick(1,0)"></button></td>
+			<td><button id="bt11" onclick="buttonClick(1,1)"></button></td>
+			<td><button id="bt12" onclick="buttonClick(1,2)"></button></td>
+		</tr>
+		<tr>
+			<td><button id="bt20" onclick="buttonClick(2,0)"></button></td>
+			<td><button id="bt21" onclick="buttonClick(2,1)"></button></td>
+			<td><button id="bt22" onclick="buttonClick(2,2)"></button></td>
+		</tr>		
+		</table>
+	</body>
+</html>

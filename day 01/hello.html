@@ -1,0 +1,19 @@
+<html>
+<head>
+	<script>
+		var globalVariable = 7;
+		function sayHello() {
+			var name = document.getElementById("name").value;
+			if (name == "") {
+				alert("Please enter your name");
+			} else {
+				alert("Hello " + name + "!");
+			}
+		}
+	</script>
+</head>
+<body>
+	<label for="name">What is your name?</label>
+	<input id="name" type="text"><br>
+	<button onclick="sayHello();">Click me</button>
+<body>

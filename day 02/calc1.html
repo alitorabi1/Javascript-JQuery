@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<script>
+			function isNumerical(value) {
+				return !isNaN(parseFloat(value)) && isFinite(value);
+			}
+			function calculate(op) {
+				var val1 = document.getElementById('val1').value;
+				var val2 = document.getElementById('val2').value;
+				// 1 validate inputs
+				if (!isNumerical(val1) || (!isNumerical(val2))) {
+					alert("You must provide two numerical values");
+					return;
+				}
+				// 2 handle the one operation
+				val1 = parseFloat(val1);
+				val2 = parseFloat(val2);
+				var result = "";
+				switch (op) {
+					case "add":
+						result = val1 + val2;
+					break;
+					case "sub":
+						result = val1 - val2;
+					break;
+					case "mul":
+						result = val1 * val2;
+					break;
+					case "div":
+						if (val2 == 0) {
+							alert("You can't divide by zero");
+							return;
+						}
+						result = val1 / val2;
+					break;
+					default:
+						alert("Internal error, unknown operation.");
+						return;
+				}
+				document.getElementById('result').innerHTML = result;
+			}
+		</script>
+	</head>
+	<body>
+		<input type="numeric" id="val1"> op 
+		<input type="numeric" id="val2"><br>
+		<button onclick="calculate('add')">+</button>
+		<button onclick="calculate('sub')">-</button>
+		<button onclick="calculate('mul')">*</button>
+		<button onclick="calculate('div')">/</button><br>
+		<p id="result"></p>
+		
+	</body>
+</html>

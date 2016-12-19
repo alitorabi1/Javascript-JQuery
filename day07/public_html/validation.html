@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .inputCombo { width: 750px; margin: 10px; }
+            .inputCombo label { width: 150px; }
+            .inputCombo input { width: 150px; }
+            .inputCombo p { width: 400px; display: inline-block; }
+            .inputError {                
+                border: 2px solid red;
+                background-color: yellow;
+            }
+        </style>
+        <script src="jquery-2.2.3.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".errorMessage").hide();
+                $("input[name=username]").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("input[name=username]").blur(function () {
+                    $(this).css("background-color", "#ffffff");
+                    var username = $(this).val();
+                    console.log("username is: " + username);
+                    if (username.match(/^[a-z0-9]{3,10}$/)) {
+                        $("#usernameContainer .errorMessage").hide();
+                        $("#usernameContainer").removeClass("inputError");
+                    } else {
+                        $("#usernameContainer .errorMessage").show();
+                        $("#usernameContainer").addClass("inputError");
+                    }
+                });
+                $("#ipaddress").focus(function () {
+                    $(this).css("background-color", "#cccccc");
+                });
+                $("#ipaddress").blur(function () {
+                    $(this).css("background-color", "#ffffff");
+                    var value = $(this).val();                    
+                    if (value.match(/^([0-9]{1,3}\.){3}[0-9]{1,3}$/)) {
+                        var numList = value.split('.');
+                        var isValid = true;
+                        for (var i=0; i<4; i++) {
+                            if (numList[i] > 255) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                        if (isValid) {
+                            $("#ipAddressContainer .errorMessage").hide();
+                            $("#ipAddressContainer").removeClass("inputError");
+                        } else {
+                            $("#ipAddressContainer .errorMessage").show();
+                            $("#ipAddressContainer").addClass("inputError");
+                        }
+                    } else {
+                        $("#ipAddressContainer .errorMessage").show();
+                        $("#ipAddressContainer").addClass("inputError");
+                    }
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+        <form action="http://server.prokopski.com/html/receive.php">
+        <div class="inputCombo" id="usernameContainer">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <p class="errorMessage">Username must be 3-10 characters
+                long and consist of only lowercase letters and numbers</p>
+        </div>
+        <div class="inputCombo" id="ipAddressContainer">
+            <label for="ipaddress">IP address:</label>
+            <input type="text" id="ipaddress" name="ipaddress">
+            <p class="errorMessage">IP address consists must be in 
+            0-255.0-255.0-255.0-255 format, e.g. 10.22.3.101.</p>
+        </div>
+            <input type="submit">
+        </form>
+    </body>
+</html>

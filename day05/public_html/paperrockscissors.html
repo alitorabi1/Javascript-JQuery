@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-2.2.3.min.js"></script>
+        <script>
+            var gamesTotal = 0;
+            var gamesWon = 0;
+
+            function userPlay(userHand) {
+                var handIndex = ['paper', 'rock', 'scissors'];
+                var computerChoice = Math.floor(Math.random() * 3);
+                var compHand = handIndex[computerChoice];
+                //
+                var winner = "";
+                if (compHand === 'paper') {
+                    switch (userHand) {
+                        case 'paper':
+                            winner = 'draw';
+                            break;
+                        case 'rock':
+                            winner = 'comp';
+                            break;
+                        case 'scissors':
+                            winner = 'user';
+                            break;
+                        default:
+                            alert("we messed up");
+                    }
+                }
+                if (compHand === 'rock') {
+                    switch (userHand) {
+                        case 'paper':
+                            winner = 'user';
+                            break;
+                        case 'rock':
+                            winner = 'draw';
+                            break;
+                        case 'scissors':
+                            winner = 'comp';
+                            break;
+                        default:
+                            alert("Internal error, call 1-800-WELEARN");
+                    }
+                }
+                if (compHand === 'scissors') {
+                    switch (userHand) {
+                        case 'paper':
+                            winner = 'comp';
+                            break;
+                        case 'rock':
+                            winner = 'user';
+                            break;
+                        case 'scissors':
+                            winner = 'draw';
+                            break;
+                        default:
+                            alert("Internal error, call 1-800-WELEARN");
+                    }
+                }
+                //
+                gamesTotal++;
+                switch (winner) {
+                    case 'comp':
+                        $("#history").append("<li><img width=\"18\" src=\"images/lost.jpg\">"
+                        + "Computer won: " + userHand + " vs " + compHand + "</li>");
+                        break;
+                    case 'user':
+                        gamesWon++;
+                        $("#history").append("<li><img width=\"18\" src=\"images/won.jpg\">"
+                        + "User won: " + compHand + " vs " + userHand + "</li>");
+                        break;
+                    case 'draw':
+                        $("#history").append("<li><img width=\"18\" src=\"images/draw.jpg\">"
+                                + "Draw with both " + userHand + "</li>");
+                        break;
+                    default:
+                        alert("Internal error, call 1-800-WELEARN");
+                }
+                // update the stats
+                $("#won").html(gamesWon);
+                $("#total").html(gamesTotal);
+            }
+
+            $(document).ready(function () {
+                $("#paper").click(function () {
+                    userPlay('paper');
+                });
+                $("#rock").click(function () {
+                    userPlay('rock');
+                });
+                $("#scissors").click(function () {
+                    userPlay('scissors');
+                });
+            });
+        </script>
+    </head>
+    <body>
+        Your choice:
+        <button id="paper">Paper</button>
+        <button id="rock">Rock</button>
+        <button id="scissors">Scissors</button><br>
+        <p>User won <span id="won">0</span> games of
+            <span id="total">0</span> total.</p>
+        <ul id="history"></ul>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".errorMessage").hide();
+                $("input[name=date]").blur(function () {
+                    var value = $("input[name=date]").val();
+                    result = value.match(/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/);
+                    if (result) {
+                        var strArray = value.split("/");
+                        if ((parseInt(strArray[0]) < 1900) || (parseInt(strArray[0]) > 2099)) {
+                            result = false;
+                        }
+                        if ((parseInt(strArray[1]) === 0) || (parseInt(strArray[1]) > 12)) {
+                            result = false;
+                        }
+                        if ((parseInt(strArray[2]) === 0) || (parseInt(strArray[2]) > 31)) {
+                            result = false;
+                        }
+                    }
+
+                    if (!result)
+                    {
+                        $("#dateError").show();
+                    } else {
+                        $("#dateError").hide();
+                    }
+                });
+                $("input[name=time]").blur(function () {
+
+                });
+            });
+        </script>
+    </head>
+    <body>
+        Date YYYY/MM/DD : <input type="text" name="date">
+        <span class="errorMessage" id="dateError">Invalid date</span><br>
+        Time HH:MM:SS :<input type="text" name="time">
+        <span class="errorMessage" id="timeError">Invalid time</span><br>
+    </body>
+</html>

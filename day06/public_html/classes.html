@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .bold { font-weight: bold; }
+            .italic { font-style: italic; }
+            .redOnYellowBackground {
+                color: red;
+                background-color: yellow;
+            }            
+        </style>
+        <script src="jquery-2.2.3.min.js"></script> 
+        <script>
+            $(document).ready(function() {
+                $(".boldSwitch").click(function() {
+                    switch (this.id) {
+                        case "boldAdd":
+                            $("#testSubject").addClass('bold');
+                            break;
+                        case "boldRemove":
+                            $("#testSubject").removeClass('bold');
+                            break;
+                        case "boldToggle":
+                            $("#testSubject").toggleClass('bold');
+                            break;
+                    }
+                });
+                $("#italicSwitches button").click(function() {
+                    switch (this.id) {
+                        case "italicAdd":
+                            $("#testSubject").addClass('italic');
+                            break;
+                        case "italicRemove":
+                            $("#testSubject").removeClass('italic');
+                            break;
+                        case "italicToggle":
+                            $("#testSubject").toggleClass('italic');
+                            break;
+                    }
+                });
+            });
+        </script>            
+    </head>
+    
+    <body>
+        Bold class: <button class="boldSwitch" id="boldAdd">Show</button>
+        <button class="boldSwitch" id="boldRemove">Hide</button>
+        <button class="boldSwitch" id="boldToggle">Toggle</button><br><br>
+        
+        <div id="italicSwitches">
+            Italic class: <button id="italicAdd">Show</button>
+            <button id="italicRemove">Hide</button>
+            <button id="italicToggle">Toggle</button>
+        </div>
+        
+        <br><br>            
+        Scary class: <button id="boldShow">Show</button>
+        <button id="boldHide">Hide</button>
+        <button id="boldToggle">Toggle</button><br><br>
+        <p id="testSubject">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+    </body>
+</html>
